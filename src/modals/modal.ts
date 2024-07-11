@@ -8,23 +8,25 @@ const userSchema = new Schema(
             required: true,
 
         },
-        address: {
-            building: {
-                type: String,
-                required: true
-            },
-            city: {
-                type: String,
-                required: true
-            },
-            state: {
-                type: String,
-                required: true
-            },
-            pincode: {
-                type: String,
-                required: true
-            }
+        profession: {
+            type: String,
+            enum: ['MANAGER', 'DEVELOPER', 'DESIGNER', 'MARKETING', 'HR']
+        },
+        building: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        },
+        pincode: {
+            type: String,
+            required: true
         },
         phone: {
             type: String,
