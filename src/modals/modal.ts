@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Profession } from "../enum/enum";
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
@@ -6,11 +7,10 @@ const userSchema = new Schema(
         name: {
             type: String,
             required: true,
-
         },
         profession: {
             type: String,
-            enum: ['MANAGER', 'DEVELOPER', 'DESIGNER', 'MARKETING', 'HR']
+            enum: Profession
         },
         building: {
             type: String,
