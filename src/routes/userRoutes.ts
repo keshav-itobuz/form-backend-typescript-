@@ -1,4 +1,4 @@
-import {storeData , getData , deleteData , updateData} from "../controllers/controller";
+import {storeData , getData , deleteData , updateData , deleteAll} from "../controllers/userController";
 
 import { Router } from "express";
 
@@ -11,5 +11,7 @@ router.get('/getData' , getData)
 router.put('/updateData' , updateData)
 
 router.delete('/deleteData' , deleteData)
+
+router.delete('/deleteAll' , deleteAll)
 
 export default router

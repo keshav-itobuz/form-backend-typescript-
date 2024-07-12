@@ -1,5 +1,5 @@
 import express, { Express, NextFunction, Request, Response } from "express";
-import route from './routes/route'
+import route from './routes/userRoutes'
 import dotenv from "dotenv";
 import cors from "cors";
 import dbConnection from "./config/dbConnection";
@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors())
 
 app.use("/", route);
-app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof Error)
     res.status(404).json({ data: null, message: error.message })
 })

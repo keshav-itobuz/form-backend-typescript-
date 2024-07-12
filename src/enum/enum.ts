@@ -1,3 +1,7 @@
 export enum Profession {
-    MANAGER, DEVELOPER, DESIGNER, MARKETING, HR
+    MANAGER='manager',
+    DEVELOPER='developer',
+    DESIGNER='designer',
+    MARKETING='marketing',
+    HR='hr'
 }
