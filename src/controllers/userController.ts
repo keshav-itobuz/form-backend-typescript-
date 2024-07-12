@@ -26,13 +26,18 @@ export const storeData: RequestHandler = async (req, res, next) => {
 
 export const getData: RequestHandler = async (req, res, next) => {
     try {
-        const { profession } = req.query;
-        let userData;
-        if (profession === 'all')
-            userData = await User.find();
-        else
-            userData = await User.find({ profession });
-        res.status(200).json({ data: userData, message: "success" })
+        const { profession, page } = req.query;
+        let userData, total;
+        if (profession === 'all') {
+            userData = await User.find().skip(10 * Number(page)).limit(10);
+            total = await User.countDocuments()
+        }
+        else {
+            userData = await User.find({ profession }).skip(8 * Number(page)).limit(8);
+            total = await User.countDocuments({ profession })
+        }
+        total=Math.ceil(total/10)
+        res.status(200).json({ data: { userData, total }, message: "success" })
     }
     catch (error) {
         next(error);
@@ -48,6 +53,7 @@ export const deleteData = async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 }
+
 export const deleteAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await User.deleteMany();
@@ -62,7 +68,7 @@ export const updateData = async (req: Request, res: Response, next: NextFunction
     try {
         const data = req.body.formData;
         const updatedData = await User.findOneAndUpdate({ email: data.email }, data, { returnOriginal: false })
-        res.status(200).json({ data: updateData, message: "success" })
+        res.status(200).json({ data: updatedData, message: "success" })
     }
     catch (error) {
         next(error);

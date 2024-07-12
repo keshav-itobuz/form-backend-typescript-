@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 import { Profession } from "../enum/enum";
+import { UserData } from "../interface/iterface";
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const userSchema = new Schema<UserData>(
     {
         name: {
             type: String,
