@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { Profession } from "../enum/enum";
-import { UserData } from "../interface/iterface";
+import { UserData } from "../interface/interface";
 const { Schema } = mongoose;
 
 const userSchema = new Schema<UserData>(
