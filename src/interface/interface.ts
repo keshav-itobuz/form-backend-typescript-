@@ -1,9 +1,9 @@
-import { PROFESSION, STATUS_CODE } from '../enum/enum'
+import { Profession } from '../enum/enum'
 
 export interface EmployeeData {
     name: string
     building: string
-    profession: PROFESSION
+    profession: Profession
     city: string
     state: string
     pincode: string

@@ -11,13 +11,13 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/save-employee-data', validator, storeEmployeeData)
+router.post('/send-employee', validator, storeEmployeeData)
 
-router.get('/get-employee-data', getEmployeeData)
+router.get('/get-employee', getEmployeeData)
 
-router.put('/update-employee-data', updateEmployeeData)
+router.put('/update-employee', validator, updateEmployeeData)
 
-router.delete('/delete-employee-data', deleteEmployeeData)
+router.delete('/delete-employee', deleteEmployeeData)
 
 router.delete('/delete-all-employee', deleteAllEmployee)
 

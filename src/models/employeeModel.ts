@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { PROFESSION } from '../enum/enum'
+import { Profession } from '../enum/enum'
 import { EmployeeData } from '../interface/interface'
 const { Schema } = mongoose
 
@@ -11,7 +11,7 @@ const employeeSchema = new Schema<EmployeeData>(
         },
         profession: {
             type: String,
-            enum: PROFESSION,
+            enum: Profession,
         },
         building: {
             type: String,
@@ -40,5 +40,4 @@ const employeeSchema = new Schema<EmployeeData>(
     { timestamps: true }
 )
 
-const Employee = mongoose.model('employee', employeeSchema)
-export default Employee
+export default mongoose.model('employee', employeeSchema)

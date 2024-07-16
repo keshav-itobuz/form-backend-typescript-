@@ -1,4 +1,4 @@
-import { STATUS_CODE } from '../enum/enum'
+import { StatusCode } from '../enum/enum'
 import { Response } from 'express'
 
 export default function customErrorHandler({
@@ -6,7 +6,7 @@ export default function customErrorHandler({
     message,
     res,
 }: {
-    code: STATUS_CODE
+    code: StatusCode
     message: string
     res: Response
 }) {

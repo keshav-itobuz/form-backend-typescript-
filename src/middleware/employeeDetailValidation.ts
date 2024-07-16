@@ -1,41 +1,41 @@
 import { RequestHandler } from 'express'
 import Employee from '../models/employeeModel'
 import customErrorHandler from '../helper/customErrorHandler'
-import { STATUS_CODE } from '../enum/enum'
+import { StatusCode } from '../enum/enum'
 
 const validator: RequestHandler = async (req, res, next) => {
     try {
-        const data = req.body.formData
+        const {name,email,building,city,state,pincode} = req.body.formData
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         if (
             !(
-                data.name &&
-                data.building &&
-                data.city &&
-                data.state &&
-                data.email &&
-                data.pincode
+                name &&
+                building &&
+                city &&
+                state &&
+                email &&
+                pincode
             )
         ) {
             customErrorHandler({
-                code: STATUS_CODE.NOT_ACCEPTABLE,
+                code: StatusCode.NOT_ACCEPTABLE,
                 message: 'Fill all fields present',
                 res,
             })
             return
         }
-        if (!data.email.match(emailRegex)) {
+        if (!email.match(emailRegex)) {
             customErrorHandler({
-                code: STATUS_CODE.NOT_ACCEPTABLE,
+                code: StatusCode.NOT_ACCEPTABLE,
                 message: 'Email is Invalid',
                 res,
             })
             return
         }
-        const userExistence = await Employee.findOne({ email: data.email })
+        const userExistence = await Employee.findOne({ email: email })
         if (userExistence) {
             customErrorHandler({
-                code: STATUS_CODE.CONFLICT,
+                code: StatusCode.CONFLICT,
                 message: 'Employee already filled the form',
                 res,
             })
