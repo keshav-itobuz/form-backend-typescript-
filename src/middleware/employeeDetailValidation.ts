@@ -5,18 +5,10 @@ import { StatusCode } from '../enum/enum'
 
 const validator: RequestHandler = async (req, res, next) => {
     try {
-        const {name,email,building,city,state,pincode} = req.body.formData
+        const { name, email, building, city, state, pincode } =
+            req.body.formData
         const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-        if (
-            !(
-                name &&
-                building &&
-                city &&
-                state &&
-                email &&
-                pincode
-            )
-        ) {
+        if (!(name && building && city && state && email && pincode)) {
             customErrorHandler({
                 code: StatusCode.NOT_ACCEPTABLE,
                 message: 'Fill all fields present',
