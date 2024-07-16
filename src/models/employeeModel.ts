@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { Profession } from "../enum/enum";
-import { UserData } from "../interface/interface";
+import { PROFESSION } from "../enum/enum";
+import { EmployeeData } from "../interface/interface";
 const { Schema } = mongoose;
 
-const userSchema = new Schema<UserData>(
+const employeeSchema = new Schema<EmployeeData>(
   {
     name: {
       type: String,
@@ -11,7 +11,7 @@ const userSchema = new Schema<UserData>(
     },
     profession: {
       type: String,
-      enum: Profession,
+      enum: PROFESSION,
     },
     building: {
       type: String,
@@ -40,5 +40,5 @@ const userSchema = new Schema<UserData>(
   { timestamps: true },
 );
 
-const User = mongoose.model("user", userSchema);
-export default User;
+const Employee = mongoose.model("employee", employeeSchema);
+export default Employee;

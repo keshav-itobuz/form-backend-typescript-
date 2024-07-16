@@ -1,14 +1,14 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import User from "../models/userModel";
-import { StatusCode } from "../enum/enum";
-import { Profession } from "../enum/enum";
+import Employee from "../models/employeeModel";
+import { STATUS_CODE } from "../enum/enum";
+import { PROFESSION } from "../enum/enum";
 export const storeEmployeeData: RequestHandler = async (req, res, next) => {
   try {
     const data = req.body.formData;
-    await User.create(data);
+    await Employee.create(data);
     res
-      .status(StatusCode.OK)
-      .json({ data: null, message: "successfully stored the data" });
+      .status(STATUS_CODE.OK)
+      .json({ data: null, message: "successfully stored the data", success: true });
   } catch (error) {
     next(error);
   }
@@ -18,17 +18,18 @@ export const getEmployeeData: RequestHandler = async (req, res, next) => {
   try {
     const { profession, page } = req.query;
     const employeeProfession =
-      profession === Profession.ALL ? {} : { profession };
-    const userData = await User.find({ ...employeeProfession })
+      profession === PROFESSION.ALL ? {} : { profession };
+    const employeeData = await Employee.find({ ...employeeProfession })
       .skip(10 * Number(page))
       .limit(10);
-    let total = await User.countDocuments({ ...employeeProfession });
+    let total = await Employee.countDocuments({ ...employeeProfession });
     total = Math.ceil(total / 10);
     res
-      .status(StatusCode.ACCEPTED)
+      .status(STATUS_CODE.ACCEPTED)
       .json({
-        data: { userData, total },
+        data: { employeeData, total },
         message: "Data received successfully",
+        success: true
       });
   } catch (error) {
     next(error);
@@ -41,10 +42,10 @@ export const deleteEmployeeData = async (
   next: NextFunction,
 ) => {
   try {
-    await User.findByIdAndDelete(req.query.id);
+    await Employee.findByIdAndDelete(req.query.id);
     res
-      .status(StatusCode.NO_CONTENT)
-      .json({ data: null, message: "Employee data deleted successfully" });
+      .status(STATUS_CODE.NO_CONTENT)
+      .json({ data: null, message: "Employee data deleted successfully", success: true });
   } catch (error) {
     next(error);
   }
@@ -56,11 +57,11 @@ export const deleteAllEmployee = async (
   next: NextFunction,
 ) => {
   try {
-    await User.deleteMany();
+    await Employee.deleteMany();
     res
       .status(200)
-      .json(StatusCode.NO_CONTENT)
-      .json({ data: null, message: "Successfully deleted all the data" });
+      .json(STATUS_CODE.NO_CONTENT)
+      .json({ data: null, message: "Successfully deleted all the data", success: true });
   } catch (error) {
     next(error);
   }
@@ -73,14 +74,14 @@ export const updateEmployeeData = async (
 ) => {
   try {
     const data = req.body.formData;
-    const updatedData = await User.findOneAndUpdate(
+    const updatedData = await Employee.findOneAndUpdate(
       { email: data.email },
       data,
       { returnOriginal: false },
     );
     res
-      .status(StatusCode.OK)
-      .json({ data: updatedData, message: "Data updated successfully" });
+      .status(STATUS_CODE.OK)
+      .json({ data: updatedData, message: "Data updated successfully", success: true });
   } catch (error) {
     next(error);
   }

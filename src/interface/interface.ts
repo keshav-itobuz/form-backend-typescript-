@@ -1,16 +1,12 @@
-import { Profession, StatusCode } from "../enum/enum";
+import { PROFESSION, STATUS_CODE } from "../enum/enum";
 
-export interface UserData {
+export interface EmployeeData {
   name: string;
   building: string;
-  profession: Profession;
+  profession: PROFESSION;
   city: string;
   state: string;
   pincode: string;
   phone?: string;
   email: string;
-}
-export interface ErrorInterface {
-  code: StatusCode;
-  message: string;
 }

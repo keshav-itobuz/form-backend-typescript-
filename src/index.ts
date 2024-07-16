@@ -1,10 +1,9 @@
 import express, { Express, NextFunction, Request, Response } from "express";
-import route from "./routes/userRoutes";
+import route from "./routes/employeeRoutes";
 import dotenv from "dotenv";
 import cors from "cors";
 import dbConnection from "./config/dbConnection";
-import { ErrorInterface } from "./interface/interface";
-import { StatusCode } from "./enum/enum";
+import { STATUS_CODE } from "./enum/enum";
 
 dotenv.config();
 const port: String = process.env.PORT || "3000";
@@ -18,8 +17,8 @@ app.use("/", route);
 app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof Error)
     res
-      .status(StatusCode.INTERNAL_SERVER_ERROR)
-      .json({ data: null, message: error.message });
+      .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
+      .json({ data: null, message: error.message , success: false});
 });
 
 app.listen(port, () => {

@@ -1,4 +1,4 @@
-export enum Profession {
+export enum PROFESSION {
   ALL = "all",
   MANAGER = "manager",
   DEVELOPER = "developer",
@@ -7,7 +7,7 @@ export enum Profession {
   HR = "hr",
 }
 
-export enum StatusCode {
+export enum STATUS_CODE {
   "OK" = 200,
   "CREATED" = 201,
   "ACCEPTED" = 202,
