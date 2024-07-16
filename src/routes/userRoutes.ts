@@ -1,18 +1,18 @@
-import { storeData, getData, deleteData, updateData, deleteAll } from "../controllers/userController";
+import { storeEmployeeData, getEmployeeData, deleteEmployeeData, updateEmployeeData, deleteAllEmployee } from "../controllers/userController";
 import validator from "../middleware/validation";
 
 import { Router } from "express";
 
 const router = Router();
 
-router.post('/saveData', validator, storeData)
+router.post('/save-data', validator, storeEmployeeData)
 
-router.get('/getData', getData)
+router.get('/get-data', getEmployeeData)
 
-router.put('/updateData', updateData)
+router.put('/update-data', updateEmployeeData)
 
-router.delete('/deleteData', deleteData)
+router.delete('/delete-data', deleteEmployeeData)
 
-router.delete('/deleteAll', deleteAll)
+router.delete('/delete-all', deleteAllEmployee)
 
 export default router

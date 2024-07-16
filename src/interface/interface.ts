@@ -1,4 +1,4 @@
-import { Profession } from "../enum/enum"
+import { Profession, StatusCode } from "../enum/enum"
 
 export interface UserData {
     name: string,
@@ -12,9 +12,7 @@ export interface UserData {
 
 }
 export interface ErrorInterface {
-    code: number,
-    message: {
-        Error: Error
-    }
+    code: StatusCode,
+    message: string
 
 }

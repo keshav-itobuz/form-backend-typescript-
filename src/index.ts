@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import dbConnection from "./config/dbConnection";
 import { ErrorInterface } from "./interface/interface";
+import { StatusCode } from "./enum/enum";
 
 
 dotenv.config();
@@ -15,8 +16,9 @@ app.use(express.json());
 app.use(cors())
 
 app.use("/", route);
-app.use((error: ErrorInterface, _req: Request, res: Response, _next: NextFunction) => {
-  res.status(error.code).json({ data: null, message: error.message})
+app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
+  if (error instanceof Error)
+    res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ data: null, message: error.message })
 
 })
 
