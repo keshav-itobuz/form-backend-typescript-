@@ -52,19 +52,10 @@ export const deleteEmployeeData = async (
   next: NextFunction
 ) => {
   try {
-    const id = new mongoose.Types.ObjectId(req.query.id as string);
-    const deletedData = await Employee.findByIdAndDelete(id)
-    if (!deletedData) {
-      res.status(StatusCode.OK).json({
-        data: null,
-        message: 'No such record exist please check the id',
-        success: true,
-      })
-      return;
-    }
-    res.status(StatusCode.NO_CONTENT).json({
+    const deletedData = await Employee.findByIdAndDelete(req.query.id)
+    res.status(StatusCode.OK).json({
       data: null,
-      message: 'Employee data deleted successfully',
+      message: deletedData ? 'Employee data deleted successfully' : 'No such record exist please check the id',
       success: true,
     })
   } catch (error) {
@@ -95,25 +86,22 @@ export const updateEmployeeData = async (
   next: NextFunction
 ) => {
   try {
-    const { email } = req.body.formData
-    const updatedData = await Employee.findOneAndUpdate(
-      { email: email },
+    const { email, _id } = req.body.formData
+    const duplicateEntry = await Employee.findOne({ email });
+    if (duplicateEntry !== null && !duplicateEntry._id .equals(_id)) {
+      throw new Error("Duplicate email");
+    }
+    const updatedData = await Employee.findByIdAndUpdate(
+      _id,
       req.body.formData,
       { returnOriginal: false }
     )
-    if (!updatedData) {
-      res.status(StatusCode.OK).json({
-        data: null,
-        message: 'No such record exist please check the email',
-        success: true,
-      })
-      return;
-    }
     res.status(StatusCode.OK).json({
-      data: updatedData,
-      message: 'Data updated successfully',
+      data: null,
+      message: updatedData ? 'No such record exist please check the email' : 'Data updated successfully',
       success: true,
     })
+
   } catch (error) {
     next(error)
   }
