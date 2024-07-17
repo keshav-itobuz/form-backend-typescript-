@@ -46,11 +46,7 @@ export const getEmployeeData: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const deleteEmployeeData = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const deleteEmployeeData :RequestHandler = async (req,res,next) => {
     try {
         const deletedData = await Employee.findByIdAndDelete(req.query.id)
         res.status(StatusCode.OK).json({
@@ -65,11 +61,7 @@ export const deleteEmployeeData = async (
     }
 }
 
-export const deleteAllEmployee = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const deleteAllEmployee :RequestHandler = async (req,res,next) => {
     try {
         await Employee.deleteMany()
         res.status(StatusCode.NO_CONTENT).json({
@@ -82,15 +74,11 @@ export const deleteAllEmployee = async (
     }
 }
 
-export const updateEmployeeData = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+export const updateEmployeeData :RequestHandler = async (req,res,next) => {
     try {
         const { email, _id } = req.body.formData
         const duplicateEntry = await Employee.findOne({ email })
-        if (duplicateEntry !== null && !duplicateEntry._id.equals(_id)) {
+        if (duplicateEntry && !duplicateEntry._id.equals(_id)) {
             throw new Error('Duplicate email')
         }
         const updatedData = await Employee.findByIdAndUpdate(
