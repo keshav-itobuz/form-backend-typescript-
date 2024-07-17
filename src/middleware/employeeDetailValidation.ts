@@ -24,15 +24,6 @@ const validator: RequestHandler = async (req, res, next) => {
             })
             return
         }
-        const userExistence = await Employee.findOne({ email: email })
-        if (userExistence) {
-            customErrorHandler({
-                code: StatusCode.CONFLICT,
-                message: 'Employee already filled the form',
-                res,
-            })
-            return
-        }
         next()
     } catch (error) {
         next(error)
