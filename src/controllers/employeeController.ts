@@ -1,4 +1,4 @@
-import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { RequestHandler} from 'express'
 import Employee from '../models/employeeModel'
 import { StatusCode } from '../enum/enum'
 import { Profession } from '../enum/enum'
@@ -9,12 +9,12 @@ export const storeEmployeeData: RequestHandler = async (req, res, next) => {
         const { email } = req.body.formData
         const userExistence = await Employee.findOne({ email })
         if (userExistence) {
-            customErrorHandler({
-                code: StatusCode.CONFLICT,
-                message: 'Employee already filled the form',
-                res,
-            })
-            return
+          customErrorHandler({
+            code: StatusCode.CONFLICT,
+            message: 'Employee already filled the form',
+            res,
+          })
+          return
         }
         await Employee.create(req.body.formData)
         res.status(StatusCode.OK).json({
@@ -76,13 +76,13 @@ export const deleteAllEmployee :RequestHandler = async (req,res,next) => {
 
 export const updateEmployeeData :RequestHandler = async (req,res,next) => {
     try {
-        const { email, _id } = req.body.formData
+        const { email, id } = req.body.formData
         const duplicateEntry = await Employee.findOne({ email })
-        if (duplicateEntry && !duplicateEntry._id.equals(_id)) {
+        if (duplicateEntry && !duplicateEntry._id.equals(id)) {
             throw new Error('Duplicate email')
         }
         const updatedData = await Employee.findByIdAndUpdate(
-            _id,
+            id,
             req.body.formData,
             { returnOriginal: false }
         )
