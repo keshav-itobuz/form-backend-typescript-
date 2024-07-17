@@ -3,7 +3,7 @@ import Employee from '../models/employeeModel'
 import { StatusCode } from '../enum/enum'
 import { Profession } from '../enum/enum'
 import customErrorHandler from '../helper/customErrorHandler'
-import mongoose from 'mongoose'
+
 export const storeEmployeeData: RequestHandler = async (req, res, next) => {
     try {
         const { email } = req.body.formData

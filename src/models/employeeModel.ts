@@ -35,6 +35,7 @@ const employeeSchema = new Schema<EmployeeData>(
         email: {
             type: String,
             required: true,
+            unique:true,
         },
     },
     { timestamps: true }
