@@ -54,15 +54,15 @@ export const deleteAllEmployee: RequestHandler = async (req, res, next) => {
 
 export const createUpdateEmployeeData: RequestHandler = async (req, res, next) => {
   try {
-    const { email, _id } = req.body.formData
+    const { email, _id } = req.body.employeeDetail
     const duplicateEntry = await Employee.findOne({ email })
     if (duplicateEntry && !duplicateEntry._id.equals(_id)) {
       throw new Error('Duplicate email')
     }
-    req.body.formData._id = _id ? _id : new mongoose.Types.ObjectId();
+    req.body.employeeDetail._id = _id ? _id : new mongoose.Types.ObjectId();
     const updatedData = await Employee.findByIdAndUpdate(
-      req.body.formData._id,
-      req.body.formData,
+      req.body.employeeDetail._id,
+      req.body.employeeDetail,
       { upsert: true, returnOriginal: false }
     )
     res.status(StatusCode.OK).json({
