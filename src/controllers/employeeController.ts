@@ -24,25 +24,11 @@ export const getEmployee: RequestHandler = async (req, res, next) => {
   }
 }
 
+
 export const deleteEmployee: RequestHandler = async (req, res, next) => {
   try {
-    const deletedData = await Employee.findByIdAndDelete(req.query.id)
-    res.status(StatusCode.OK).json({
-      data: null,
-      message: deletedData
-        ? 'Employee data deleted successfully'
-        : 'No such record exist please check the id',
-      success: true,
-    })
-  } catch (error) {
-    next(error)
-  }
-}
-
-export const deleteAllEmployee: RequestHandler = async (req, res, next) => {
-  try {
-
-    const deletedData = await Employee.deleteMany({})
+    const _id = req.query.id ? { _id: req.query.id } : {};
+    const deletedData = await Employee.deleteMany(_id)
     res.status(StatusCode.NO_CONTENT).json({
       data: null,
       message: 'Successfully deleted all the data',
@@ -58,7 +44,6 @@ export const createUpdateEmployee: RequestHandler = async (req, res, next) => {
     const validate = employeeSchema.safeParse(req.body.employeeData)
     if (!validate.success) {
       throw new Error(validate?.error?.errors[0]?.message)
-      return;
     }
     const { email, _id } = req.body.employeeData
     const duplicateEntry = await Employee.findOne({ email })
