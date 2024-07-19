@@ -38,12 +38,16 @@ export const deleteEmployeeData: RequestHandler = async (req, res, next) => {
     }
 }
 
-export const deleteAllEmployee: RequestHandler = async (req, res, next) => {
+export const deleteEmployee: RequestHandler = async (req, res, next) => {
     try {
-        await Employee.deleteMany()
-        res.status(StatusCode.NO_CONTENT).json({
+        const { id } = req.query
+        id ? id : {}
+        const deletedData = await Employee.deleteMany({ _id: id })
+        res.status(StatusCode.OK).json({
             data: null,
-            message: 'Successfully deleted all the data',
+            message: deletedData
+                ? 'Employee data deleted successfully'
+                : 'No such record exist please check the id',
             success: true,
         })
     } catch (error) {
