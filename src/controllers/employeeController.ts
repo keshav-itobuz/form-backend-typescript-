@@ -61,8 +61,8 @@ class employeeClass {
       res.status(StatusCode.OK).json({
         data: null,
         message: updatedData
-          ? 'Data uploaed successfully'
-          : 'Data updated successfully',
+          ? 'Data updated successfully'
+          : 'Data uploaded successfully',
         success: true,
       })
     } catch (error) {
