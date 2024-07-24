@@ -1,10 +1,10 @@
 export enum Profession {
-    ALL = 'all',
-    MANAGER = 'manager',
-    DEVELOPER = 'developer',
-    DESIGNER = 'designer',
-    MARKETING = 'marketing',
-    HR = 'hr',
+    ALL = 'All',
+    MANAGER = 'Manager',
+    DEVELOPER = 'Developer',
+    DESIGNER = 'Designer',
+    MARKETING = 'Marketing',
+    HR = 'Hr',
 }
 
 export enum StatusCode {
