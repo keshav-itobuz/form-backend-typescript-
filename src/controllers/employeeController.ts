@@ -54,10 +54,9 @@ class employeeClass {
 
     public createUpdateEmployee: RequestHandler = async (req, res, next) => {
         try {
-            const validate = employeeSchema.safeParse(req.body.employeeData)
-            if (!validate.success) {
-                throw new Error(validate?.error?.errors[0]?.message)
-            }
+            const validate = await employeeSchema.validate(
+                req.body.employeeData
+            )
             const { email, _id } = req.body.employeeData
             const duplicateEntry = await Employee.findOne({ email })
             if (duplicateEntry && !duplicateEntry._id.equals(_id)) {
