@@ -21,7 +21,7 @@ class employeeClass {
                 ...employeeProfession,
                 ...employeeName,
             })
-                .skip(10 * Number(page))
+                .skip(Number(limit) * Number(page))
                 .limit(Number(limit))
             let total = await Employee.countDocuments({
                 ...employeeProfession,
