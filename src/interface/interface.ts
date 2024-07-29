@@ -6,7 +6,7 @@ export interface EmployeeData {
     profession: Profession
     city: string
     state: string
-    pincode: string
-    phone?: string
+    pincode: number
+    phone?: number
     email: string
 }

@@ -17,8 +17,11 @@ const employeeSchema = yup.object({
     pincode: yup
         .string()
         .required('Pincode is required')
-        .min(6, 'Invalid Pincode')
-        .max(6, 'Invalid Pincode'),
+        .test(
+            'len',
+            'Must be exactly 6 characters',
+            (val) => val.toString().length === 6
+        ),
     email: yup.string().email('Invalid email').required('Email is required'),
 })
 

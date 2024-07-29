@@ -26,7 +26,7 @@ const employeeSchema = new Schema<EmployeeData>(
             required: true,
         },
         pincode: {
-            type: String,
+            type: Number,
             required: true,
         },
         phone: {
